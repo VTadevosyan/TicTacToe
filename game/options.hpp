@@ -43,7 +43,7 @@ static const QSize ico_size(120, 120);
 
 /**
  * @class options
- * @brief Game options
+ * @brief Game options structure
  */
 class options
 {
@@ -53,10 +53,12 @@ public:
     /// @param[in] bi Board background image
     /// @param[in] si Shape images: first - 'X', second - 'O'
     options(const QString& wi = images::w_img1, const QString& bi = images::b_img1,
-            const std::pair<QString, QString>& si = std::make_pair(images::s_img1, images::s_img2));
-
-    /// @brief Destructor
-    ~options();
+                const std::pair<QString, QString>& si = std::make_pair(images::s_img1, images::s_img2))
+            : m_window_bg_img(wi)
+            , m_board_bg_img(bi)
+            , m_shapes_img(si)
+    {
+    }
 
 private:
     QString m_window_bg_img;
