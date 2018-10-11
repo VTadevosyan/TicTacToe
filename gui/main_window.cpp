@@ -99,22 +99,25 @@ void main_window::setup_window()
 
 void main_window::end_game(const unsigned& s)
 {
+    QString text;
+    switch(s) {
+    case manager::win:
+        text = "YOU WIN!";
+        break;
+    case manager::lose:
+        text = "YOU LOSE!";
+        break;
+    case manager::draw:
+        text = "DRAW!";
+        break;
+    default:
+        Q_ASSERT("UNEXPECTED TYPE" != 0);
+    }
     QMessageBox m(this);
     m.setFixedSize(QSize(300, 190));
     m.setStyleSheet("font: 30px;");
-    switch(s) {
-    case manager::win:
-        m.setText("YOU WIN!");
-        m.exec();
-        break;
-    case manager::lose:
-        m.setText("YOU LOSE!");
-        m.exec();
-        break;
-    case manager::draw:
-        m.setText("DRAW!");
-        m.exec();
-    }
+    m.setText(text);
+    m.exec();
     m_board->clear();
     manager* mgr = manager::get_instance();
     Q_ASSERT(mgr != 0);
