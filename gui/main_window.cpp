@@ -32,10 +32,6 @@ main_window::main_window(QWidget* parent)
     : QMainWindow(parent)
 {
     construct();
-    m_menu_bar = new menu_bar(this);
-    setMenuBar(m_menu_bar);
-    connect(m_menu_bar->game_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
-    connect(m_menu_bar->info_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
 }
 
 main_window::~main_window()
@@ -45,6 +41,7 @@ main_window::~main_window()
 
 void main_window::construct()
 {
+    create_menu_bar();
     create_game_selector();
     setup_window();
 }
@@ -87,6 +84,14 @@ void main_window::set_game_mode(int mode)
     m->set_game_mode(mode);
     m->start();
     create_board();
+}
+
+void main_window::create_menu_bar()
+{
+    m_menu_bar = new menu_bar(this);
+    setMenuBar(m_menu_bar);
+    connect(m_menu_bar->game_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
+    connect(m_menu_bar->info_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
 }
 
 void main_window::setup_window()

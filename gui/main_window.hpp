@@ -50,6 +50,9 @@ private:
      /// ex: size, icon, title and etc...
     void setup_window();
 
+    /// @brief Create and initialize menu bar
+    void create_menu_bar();
+
     /// @brief Setup central widget
     void create_board();
 
