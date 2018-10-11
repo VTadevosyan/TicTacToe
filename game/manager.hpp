@@ -43,6 +43,9 @@ public:
     /// @brief Start game
     void start();
 
+    /// @brief Set game options
+    void set_options(const options&);
+
     /// @brief Set main window background image path
     void set_window_bg_image_path(const QString&);
 
@@ -90,12 +93,16 @@ signals:
     void game_status_changed(status);
 
 public slots:
+    /// @brief Finish game
     void game_finished();
 
 private:
     /// @brief Constructor
     /// @param[in] t true if multiple game, false otherwise
     manager(bool t = false);
+
+    /// @brief Create game options and initialize
+    void initialize_game_options();
 
     /// @brief Create board data and initialize
     void initialize_board_data();
@@ -137,16 +144,15 @@ private:
     static const char m_empty_symbol;
     static const char m_x_symbol;
     static const char m_o_symbol;
+
 private:
     std::vector<char> m_board_data;
     std::vector<unsigned> m_victorious_line;
+    options m_game_options;
+    status m_game_status;
     abstract_item* m_item;
     player_x* m_player_x;
     player_o* m_player_o;
-    QString m_window_bg_img_path;
-    QString m_board_bg_img_path;
-    std::pair<QString, QString> m_shapes_img_path;
-    unsigned m_game_status;
     unsigned m_cpu_steps;
     bool m_is_multiple_game;
     bool m_is_player_x_turn;

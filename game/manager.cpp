@@ -22,14 +22,12 @@ manager::manager(bool t)
     : m_item(0)
     , m_player_x(0)
     , m_player_o(0)
-    , m_window_bg_img_path("img/xo_window_background_1.jpg")
-    , m_board_bg_img_path("img/xo_board_background_1.jpg")
-    , m_shapes_img_path(std::make_pair("img/x_2.png", "img/o_2.png"))
     , m_game_status(manager::not_started)
     , m_cpu_steps(0)
     , m_is_multiple_game(t)
     , m_is_player_x_turn(true)
 {
+    initialize_game_options();
     initialize_board_data();
 }
 
@@ -62,47 +60,58 @@ void manager::start()
     m_game_status = manager::in_the_game;
 }
 
-void manager::set_window_bg_image_path(const QString& s)
-{
-    if (s != m_window_bg_img_path) {
-        m_window_bg_img_path = s;
-    }
-}
-
-QString manager::get_window_bg_image_path() const
-{
-    return m_window_bg_img_path;
-}
-
-void manager::set_board_bg_image_path(const QString& s)
-{
-    if (s != m_board_bg_img_path) {
-        m_board_bg_img_path = s;
-    }
-}
-
-QString manager::get_board_bg_image_path() const
-{
-    return m_board_bg_img_path;
-}
-
-void manager::set_item_image_path(const std::pair<QString, QString>& p)
-{
-    m_shapes_img_path.first  = p.first;
-    m_shapes_img_path.second = p.second;
-}
-
-std::pair<QString, QString> manager::get_item_image_path() const
-{
-    return m_shapes_img_path;
-}
-
 void manager::initialize_board_data()
 {
     m_board_data.resize(9);
     for(size_t i = 0; i < 9; ++i) {
         m_board_data[i] = m_empty_symbol;
     }
+}
+
+void manager::initialize_game_options()
+{
+    m_game_options.set_window_background_image("img/xo_window_background_1.jpg");
+    m_game_options.set_board_background_image("img/xo_board_background_1.jpg");
+    m_game_options.set_shape_styles(std::make_pair("img/x_2.png", "img/o_2.png"));
+}
+
+void manager::set_options(const options& o)
+{
+    m_game_options = o;
+}
+
+void manager::set_window_bg_image_path(const QString& s)
+{
+    if (s != m_game_options.get_window_background_image()) {
+        m_game_options.set_window_background_image(s);
+    }
+}
+
+QString manager::get_window_bg_image_path() const
+{
+    return m_game_options.get_window_background_image();
+}
+
+void manager::set_board_bg_image_path(const QString& s)
+{
+    if (s != m_game_options.get_board_background_image()) {
+        m_game_options.set_board_background_image(s);
+    }
+}
+
+QString manager::get_board_bg_image_path() const
+{
+    return m_game_options.get_board_background_image();
+}
+
+void manager::set_item_image_path(const std::pair<QString, QString>& p)
+{
+    m_game_options.set_shape_styles(p);
+}
+
+std::pair<QString, QString> manager::get_item_image_path() const
+{
+    return m_game_options.get_shape_styles();
 }
 
 bool manager::is_multiple_game() const
@@ -123,8 +132,8 @@ bool manager::is_section_empty(const unsigned& s)
 
 manager::status manager::check_game_status()
 {
-    if (m_game_status == not_started) {
-        return not_started;
+    if (m_game_status == manager::not_started) {
+        return manager::not_started;
     }
     if ((m_board_data[0] == m_board_data[3]) && m_board_data[0] != m_empty_symbol){
         if(m_board_data[0] == m_board_data[6]){
