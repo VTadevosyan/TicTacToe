@@ -137,6 +137,7 @@ void main_window::show_game_mode_selector()
 
 void main_window::return_main_menu()
 {
+    Q_ASSERT(manager::get_instance() != 0);
     if (manager::get_instance()->check_game_status() == manager::in_the_game) {
         const QString msg = "Show Main Menu. The game will be lost\nAre You Sure?";
         QMessageBox::StandardButton btn = QMessageBox::warning(this, main_window_options::window_title,
@@ -149,6 +150,7 @@ void main_window::return_main_menu()
 
 void main_window::closeEvent(QCloseEvent* e)
 {
+    Q_ASSERT(manager::get_instance() != 0);
     const QString msg = (manager::get_instance()->check_game_status() != manager::not_started)
                 ? "If You close window now, the game will be lost!"
                 : "Are You Sure?";
