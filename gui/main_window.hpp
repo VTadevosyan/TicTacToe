@@ -76,7 +76,6 @@ private slots:
     void show_game_mode_selector();
 
 private:
-    manager* m_manager;
     menu_bar* m_menu_bar;
     board* m_board;
     game_mode_selector* m_selector;

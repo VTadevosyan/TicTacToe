@@ -208,7 +208,7 @@ board::section board::find_section(const QPointF& p)
 
 bool board::check_section(const unsigned& s)
 {
-    Q_ASSERT(s != 0);
+    Q_ASSERT(s != 0 && s <= section_9);
     return m_section[s];
 }
 
