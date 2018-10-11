@@ -33,7 +33,7 @@ public:
     board(QWidget* parent = 0);
 
     /// @brief Destructor
-    virtual ~board();
+    ///virtual ~board();
 
     /// @brief Board sections enumeration
     enum section
@@ -104,6 +104,9 @@ private:
 
     /// @brief Clear board highlitgthing
     void clear_highligthing();
+
+    /// @brief Retrieve active section from mouse position
+    void get_active_section(section);
 
 private:
     QGraphicsScene* m_scene;

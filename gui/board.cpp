@@ -29,10 +29,10 @@ board::board(QWidget* p)
     m_board_shapes_count = 0;
 }
 
-board::~board()
+/*board::~board()
 {
     deleteLater();
-}
+}*/
 
 void board::initialize()
 {
@@ -85,8 +85,17 @@ void board::mouseMoveEvent(QMouseEvent* e)
 {
     clear_highligthing();
     QPointF p = QPointF(mapToScene(e->pos()));
-    const unsigned s = find_section(p);
+    section s = find_section(p);
     Q_ASSERT(s >= section_1 && s <= section_9);
+    get_active_section(s);
+    m_active_section->setPen(QPen(!check_section(s) ? Qt::yellow : Qt::red, 4, Qt::SolidLine));
+    m_scene->addItem(m_active_section);
+    m_scene->update();
+}
+
+void board::get_active_section(section s)
+{
+    Q_ASSERT(m_active_section == 0);
     static const QRect r(0, 0, 200, 200);
     switch (s) {
         case section_1: {
@@ -94,42 +103,47 @@ void board::mouseMoveEvent(QMouseEvent* e)
             } break;
         case section_2: {
                 m_active_section = new QGraphicsRectItem(
-                            r.topLeft().x() + 200, r.topLeft().y(), r.bottomRight().x(), r.bottomRight().y());
+                            r.topLeft().x() + 200, r.topLeft().y(),
+                            r.bottomRight().x(), r.bottomRight().y());
             } break;
         case section_3: {
                 m_active_section = new QGraphicsRectItem(
-                            r.topLeft().x() + 400, r.topLeft().x(), r.bottomRight().x(), r.bottomRight().y());
+                            r.topLeft().x() + 400, r.topLeft().x(),
+                            r.bottomRight().x(), r.bottomRight().y());
             } break;
         case section_4: {
                 m_active_section = new QGraphicsRectItem(
-                            r.topLeft().x(), r.topLeft().y() + 200, r.bottomRight().x(), r.bottomRight().y());
+                            r.topLeft().x(), r.topLeft().y() + 200,
+                            r.bottomRight().x(), r.bottomRight().y());
             } break;
         case section_5: {
                 m_active_section = new QGraphicsRectItem(
-                            r.topLeft().x() + 200, r.topLeft().y() + 200, r.bottomRight().x(), r.bottomRight().y());
+                            r.topLeft().x() + 200, r.topLeft().y() + 200,
+                            r.bottomRight().x(), r.bottomRight().y());
             } break;
         case section_6: {
                 m_active_section = new QGraphicsRectItem(
-                            r.topLeft().x() + 400, r.topLeft().y() + 200, r.bottomRight().x(), r.bottomRight().y());
+                            r.topLeft().x() + 400, r.topLeft().y() + 200,
+                            r.bottomRight().x(), r.bottomRight().y());
             } break;
         case section_7: {
                 m_active_section = new QGraphicsRectItem(
-                            r.topLeft().x(), r.topLeft().y() + 400, r.bottomRight().x(), r.bottomRight().y());
+                            r.topLeft().x(), r.topLeft().y() + 400,
+                            r.bottomRight().x(), r.bottomRight().y());
             } break;
         case section_8: {
                 m_active_section = new QGraphicsRectItem(
-                            r.topLeft().x() + 200, r.topLeft().y() + 400, r.bottomRight().x(), r.bottomRight().y());
+                            r.topLeft().x() + 200, r.topLeft().y() + 400,
+                            r.bottomRight().x(), r.bottomRight().y());
             } break;
         case section_9: {
                 m_active_section = new QGraphicsRectItem(
-                            r.topLeft().x() + 400, r.topLeft().y() + 400, r.bottomRight().x(), r.bottomRight().y());
+                            r.topLeft().x() + 400, r.topLeft().y() + 400,
+                            r.bottomRight().x(), r.bottomRight().y());
             } break;
         default:
             Q_ASSERT("Unexpected section" != 0);
     }
-    m_active_section->setPen(QPen(!check_section(s) ? Qt::yellow : Qt::red, 4, Qt::SolidLine));
-    m_scene->addItem(m_active_section);
-    m_scene->update();
 }
 
 void board::leaveEvent(QEvent*)
