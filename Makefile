@@ -56,7 +56,8 @@ SOURCES       = game/main.cpp \
 		gui/main_window.cpp \
 		gui/menu.cpp \
 		gui/style_dialog.cpp \
-		game/manager.cpp build/moc_board.cpp \
+		game/manager.cpp \
+		game/options.cpp build/moc_board.cpp \
 		build/moc_game_mode_selector.cpp \
 		build/moc_main_window.cpp \
 		build/moc_style_dialog.cpp
@@ -72,6 +73,7 @@ OBJECTS       = build/main.o \
 		build/menu.o \
 		build/style_dialog.o \
 		build/manager.o \
+		build/options.o \
 		build/moc_board.o \
 		build/moc_game_mode_selector.o \
 		build/moc_main_window.o \
@@ -331,7 +333,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d build/TicTacToe1.0.0 || mkdir -p build/TicTacToe1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) build/TicTacToe1.0.0/ && $(COPY_FILE) --parents game/manager.hpp items/item_x.hpp items/item_o.hpp items/abstract_item.hpp player/player.hpp player/player_o.hpp player/player_x.hpp style.hpp gui/actions.hpp gui/board.hpp gui/game_mode_selector.hpp gui/main_window.hpp gui/menu.hpp gui/style_dialog.hpp game/options.hpp build/TicTacToe1.0.0/ && $(COPY_FILE) --parents game/main.cpp items/item_o.cpp items/item_x.cpp player/player_o.cpp player/player_x.cpp gui/actions.cpp gui/board.cpp gui/game_mode_selector.cpp gui/main_window.cpp gui/menu.cpp gui/style_dialog.cpp game/manager.cpp build/TicTacToe1.0.0/ && (cd `dirname build/TicTacToe1.0.0` && $(TAR) TicTacToe1.0.0.tar TicTacToe1.0.0 && $(COMPRESS) TicTacToe1.0.0.tar) && $(MOVE) `dirname build/TicTacToe1.0.0`/TicTacToe1.0.0.tar.gz . && $(DEL_FILE) -r build/TicTacToe1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) build/TicTacToe1.0.0/ && $(COPY_FILE) --parents game/manager.hpp items/item_x.hpp items/item_o.hpp items/abstract_item.hpp player/player.hpp player/player_o.hpp player/player_x.hpp style.hpp gui/actions.hpp gui/board.hpp gui/game_mode_selector.hpp gui/main_window.hpp gui/menu.hpp gui/style_dialog.hpp game/options.hpp build/TicTacToe1.0.0/ && $(COPY_FILE) --parents game/main.cpp items/item_o.cpp items/item_x.cpp player/player_o.cpp player/player_x.cpp gui/actions.cpp gui/board.cpp gui/game_mode_selector.cpp gui/main_window.cpp gui/menu.cpp gui/style_dialog.cpp game/manager.cpp game/options.cpp build/TicTacToe1.0.0/ && (cd `dirname build/TicTacToe1.0.0` && $(TAR) TicTacToe1.0.0.tar TicTacToe1.0.0 && $(COMPRESS) TicTacToe1.0.0.tar) && $(MOVE) `dirname build/TicTacToe1.0.0`/TicTacToe1.0.0.tar.gz . && $(DEL_FILE) -r build/TicTacToe1.0.0
 
 
 clean:compiler_clean 
@@ -1083,6 +1085,9 @@ build/item_o.o: items/item_o.cpp items/item_o.hpp \
 		/usr/include/qt5/QtGui/qtransform.h \
 		/usr/include/qt5/QtCore/QRectF \
 		game/manager.hpp \
+		game/options.hpp \
+		/usr/include/qt5/QtCore/QSize \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtGui/QPainter \
 		/usr/include/qt5/QtGui/qpainter.h \
@@ -1191,6 +1196,9 @@ build/item_x.o: items/item_x.cpp items/item_x.hpp \
 		/usr/include/qt5/QtGui/qtransform.h \
 		/usr/include/qt5/QtCore/QRectF \
 		game/manager.hpp \
+		game/options.hpp \
+		/usr/include/qt5/QtCore/QSize \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtGui/QPainter \
 		/usr/include/qt5/QtGui/qpainter.h \
@@ -1598,6 +1606,8 @@ build/actions.o: gui/actions.cpp gui/actions.hpp \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		game/manager.hpp \
+		game/options.hpp \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/actions.o gui/actions.cpp
 
@@ -1720,6 +1730,9 @@ build/board.o: gui/board.cpp gui/board.hpp \
 		/usr/include/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/qt5/QtGui/QMouseEvent \
 		game/manager.hpp \
+		game/options.hpp \
+		/usr/include/qt5/QtCore/QSize \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QObject \
 		player/player_x.hpp \
 		player/player.hpp \
@@ -1990,14 +2003,16 @@ build/main_window.o: gui/main_window.cpp gui/actions.hpp \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtCore/QSize \
 		gui/menu.hpp \
+		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/QMenuBar \
 		/usr/include/qt5/QtWidgets/qmenubar.h \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		gui/game_mode_selector.hpp \
-		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/QButtonGroup \
 		/usr/include/qt5/QtWidgets/qbuttongroup.h \
 		game/manager.hpp \
+		game/options.hpp \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtGui/QCloseEvent \
 		/usr/include/qt5/QtWidgets/QMessageBox \
@@ -2127,13 +2142,14 @@ build/menu.o: gui/menu.cpp gui/actions.hpp \
 		/usr/include/qt5/QtWidgets/qactiongroup.h \
 		/usr/include/qt5/QtGui/QIcon \
 		gui/menu.hpp \
-		/usr/include/qt5/QtWidgets/QMainWindow \
-		/usr/include/qt5/QtWidgets/qmainwindow.h \
-		/usr/include/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/QMenuBar \
 		/usr/include/qt5/QtWidgets/qmenubar.h \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		game/manager.hpp \
+		game/options.hpp \
+		/usr/include/qt5/QtCore/QSize \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtWidgets/QMessageBox \
 		/usr/include/qt5/QtWidgets/qmessagebox.h \
@@ -2260,6 +2276,9 @@ build/style_dialog.o: gui/style_dialog.cpp gui/style_dialog.hpp \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
 		game/manager.hpp \
+		game/options.hpp \
+		/usr/include/qt5/QtCore/QSize \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
@@ -2268,9 +2287,9 @@ build/style_dialog.o: gui/style_dialog.cpp gui/style_dialog.hpp \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/style_dialog.o gui/style_dialog.cpp
 
 build/manager.o: game/manager.cpp game/manager.hpp \
-		/usr/include/qt5/QtCore/QObject \
-		/usr/include/qt5/QtCore/qobject.h \
-		/usr/include/qt5/QtCore/qobjectdefs.h \
+		game/options.hpp \
+		/usr/include/qt5/QtCore/QSize \
+		/usr/include/qt5/QtCore/qsize.h \
 		/usr/include/qt5/QtCore/qnamespace.h \
 		/usr/include/qt5/QtCore/qglobal.h \
 		/usr/include/qt5/QtCore/qconfig.h \
@@ -2308,13 +2327,17 @@ build/manager.o: game/manager.cpp game/manager.hpp \
 		/usr/include/qt5/QtCore/qtypeinfo.h \
 		/usr/include/qt5/QtCore/qtypetraits.h \
 		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
 		/usr/include/qt5/QtCore/qchar.h \
 		/usr/include/qt5/QtCore/qbytearray.h \
 		/usr/include/qt5/QtCore/qrefcount.h \
 		/usr/include/qt5/QtCore/qarraydata.h \
 		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
 		/usr/include/qt5/QtCore/qlist.h \
 		/usr/include/qt5/QtCore/qalgorithms.h \
 		/usr/include/qt5/QtCore/qiterator.h \
@@ -2349,7 +2372,6 @@ build/manager.o: game/manager.cpp game/manager.hpp \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/qrect.h \
-		/usr/include/qt5/QtCore/qsize.h \
 		/usr/include/qt5/QtGui/qpainterpath.h \
 		/usr/include/qt5/QtGui/qmatrix.h \
 		/usr/include/qt5/QtGui/qpolygon.h \
@@ -2390,6 +2412,55 @@ build/manager.o: game/manager.cpp game/manager.hpp \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/manager.o game/manager.cpp
+
+build/options.o: game/options.cpp game/options.hpp \
+		/usr/include/qt5/QtCore/QSize \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/options.o game/options.cpp
 
 build/moc_board.o: build/moc_board.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_board.o build/moc_board.cpp

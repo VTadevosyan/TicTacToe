@@ -25,6 +25,7 @@ SOURCES += game/main.cpp\
         gui/menu.cpp \
         gui/style_dialog.cpp \
         game/manager.cpp \
+        game/options.cpp
 
 HEADERS  += game/manager.hpp \
         items/item_x.hpp \
@@ -40,5 +41,5 @@ HEADERS  += game/manager.hpp \
         gui/main_window.hpp \
         gui/menu.hpp \
         gui/style_dialog.hpp \
-    game/options.hpp
+        game/options.hpp
 
