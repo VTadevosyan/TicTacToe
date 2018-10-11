@@ -6,6 +6,7 @@
 #include "gui/main_window.hpp"
 #include "gui/style_dialog.hpp"
 #include "game/manager.hpp"
+#include "game/options.hpp"
 
 #include <iostream>
 
@@ -64,18 +65,16 @@ void style_action::execute() const
 {
     manager* m = manager::get_instance();
     Q_ASSERT(m != 0);
-    const QString w = m->get_window_bg_image_path();
-    const QString b =m->get_board_bg_image_path();
-    std::pair<QString, QString> s = m->get_item_image_path();
+    options o(m->get_window_bg_image_path(),
+              m->get_board_bg_image_path(),
+              m->get_item_image_path());
     style_dialog d;
     d.setModal(true);
     d.exec();
     if (d.result() == QDialog::Accepted) {
         m_parent->set_styles();
     } else {
-        m->set_window_bg_image_path(w);
-        m->set_board_bg_image_path(b);
-        m->set_item_image_path(s);
+        m->set_options(o);
     }
 }
 
