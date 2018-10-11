@@ -33,7 +33,6 @@ main_window::main_window(QWidget *parent)
 {
     construct();
     m_menu = new menu(menuBar(), this);
-    m_menu->initialize();
     connect(m_menu->game_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
     connect(m_menu->info_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
 }
@@ -82,10 +81,10 @@ void main_window::start_game(bool mode)
 
 void main_window::set_game_mode(int mode)
 {
-    m_manager = manager::get_instance(mode);
-    Q_ASSERT(m_manager != 0);
-    m_manager->set_game_mode(mode);
-    m_manager->start();
+    manager* m = manager::get_instance(mode);
+    Q_ASSERT(m != 0);
+    m->set_game_mode(mode);
+    m->start();
     create_board();
 }
 
@@ -117,7 +116,9 @@ void main_window::end_game(const unsigned& s)
         m.exec();
     }
     m_board->clear();
-    m_manager->game_finished();
+    manager* mgr = manager::get_instance();
+    Q_ASSERT(mgr != 0);
+    mgr->game_finished();
 }
 
 void main_window::show_game_mode_selector()
@@ -127,8 +128,7 @@ void main_window::show_game_mode_selector()
 
 void main_window::return_main_menu()
 {
-    Q_ASSERT(m_manager != 0);
-    if (m_manager->check_game_status() == manager::in_the_game) {
+    if (manager::get_instance()->check_game_status() == manager::in_the_game) {
         const QString msg = "Show Main Menu. The game will be lost\nAre You Sure?";
         QMessageBox::StandardButton btn = QMessageBox::warning(this, main_window_options::window_title,
                                                                msg, QMessageBox::Ok | QMessageBox::Cancel);
@@ -140,8 +140,7 @@ void main_window::return_main_menu()
 
 void main_window::closeEvent(QCloseEvent* e)
 {
-    Q_ASSERT(m_manager != 0);
-    const QString msg = (m_manager->check_game_status() == manager::in_the_game)
+    const QString msg = (manager::get_instance()->check_game_status() != manager::not_started)
                 ? "If You close window now, the game will be lost!"
                 : "Are You Sure?";
     QMessageBox::StandardButton btn = QMessageBox::warning(this, main_window_options::window_title,
