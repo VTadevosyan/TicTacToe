@@ -19,10 +19,10 @@ const char manager::m_o_symbol = 'o';
 
 
 manager::manager(bool t)
-    : m_item(0)
+    : m_game_status(manager::not_started)
+    , m_item(0)
     , m_player_x(0)
     , m_player_o(0)
-    , m_game_status(manager::not_started)
     , m_cpu_steps(0)
     , m_is_multiple_game(t)
     , m_is_player_x_turn(true)
