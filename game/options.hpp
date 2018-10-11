@@ -53,12 +53,25 @@ public:
     /// @param[in] bi Board background image
     /// @param[in] si Shape images: first - 'X', second - 'O'
     options(const QString& wi = images::w_img1, const QString& bi = images::b_img1,
-                const std::pair<QString, QString>& si = std::make_pair(images::s_img1, images::s_img2))
-            : m_window_bg_img(wi)
-            , m_board_bg_img(bi)
-            , m_shapes_img(si)
-    {
-    }
+                const std::pair<QString, QString>& si = std::make_pair(images::s_img1, images::s_img2));
+
+    /// @brief Set window background image
+    void set_window_background_image(const QString&);
+
+    /// @brief Get window background image
+    QString get_window_background_image() const;
+
+    /// @brief Set board background image
+    void set_board_background_image(const QString&);
+
+    /// @brief Get board background image
+    QString get_board_background_image() const;
+
+    /// @brief Set 'X' and 'O' shape styles
+    void set_shape_styles(const std::pair<QString, QString>&);
+
+    /// @brief Get 'X' and 'O' shape styles
+    std::pair<QString, QString> get_shape_styles() const;
 
 private:
     QString m_window_bg_img;
