@@ -28,13 +28,14 @@ static const QString window_title = "Tic Tac Toe";
 
 const QSize main_window::m_minimum_size = QSize(800, 620);
 
-main_window::main_window(QWidget *parent)
+main_window::main_window(QWidget* parent)
     : QMainWindow(parent)
 {
     construct();
-    m_menu = new menu(menuBar(), this);
-    connect(m_menu->game_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
-    connect(m_menu->info_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
+    m_menu_bar = new menu_bar(this);
+    setMenuBar(m_menu_bar);
+    connect(m_menu_bar->game_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
+    connect(m_menu_bar->info_action_group(), SIGNAL(triggered(QAction*)), this, SLOT(actionEvent(QAction*)));
 }
 
 main_window::~main_window()
@@ -153,7 +154,7 @@ void main_window::closeEvent(QCloseEvent* e)
 
 void main_window::actionEvent(QAction* e)
 {
-    std::list<base_action*> al = m_menu->actions();
+    std::list<base_action*> al = m_menu_bar->actions();
     auto it = al.begin();
     for(; it != al.end(); ++it) {
         if(e == *it) {

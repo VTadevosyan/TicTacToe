@@ -10,61 +10,59 @@
 
 #include <iostream>
 
-menu::menu(QMenuBar* mb, QWidget* p)
+menu_bar::menu_bar(QWidget* const p)
         : m_parent(p)
-        , m_menu_bar(mb)
         , m_game_action_group(0)
         , m_info_action_group(0)
         , m_game_menu(0)
         , m_info_menu(0)
 {
-    Q_ASSERT(m_menu_bar != 0);
+    initialize();
 }
 
-menu::~menu()
+menu_bar::~menu_bar()
 {
 }
 
-void menu::initialize()
+void menu_bar::initialize()
 {
     setup_menu();
     fill_actions_data();
 }
 
-QWidget* menu::parent() const
+QWidget* menu_bar::parent() const
 {
     return m_parent;
 }
 
-QActionGroup* menu::game_action_group() const
+QActionGroup* menu_bar::game_action_group() const
 {
     return m_game_action_group;
 }
 
-QActionGroup* menu::info_action_group() const
+QActionGroup* menu_bar::info_action_group() const
 {
     return m_info_action_group;
 }
 
-std::list<base_action*> menu::actions() const
+std::list<base_action*> menu_bar::actions() const
 {
     return m_actions;
 }
 
-void menu::setup_menu()
+void menu_bar::setup_menu()
 {
-    Q_ASSERT(m_menu_bar != 0);
     create_action_groups();
     create_menus();
 }
 
-void menu::create_action_groups()
+void menu_bar::create_action_groups()
 {
     manager* m = manager::get_instance();
     Q_ASSERT(m != 0);
     try {
-        m_game_action_group = new QActionGroup(m_menu_bar);
-        m_info_action_group = new QActionGroup(m_menu_bar);
+        m_game_action_group = new QActionGroup(this);
+        m_info_action_group = new QActionGroup(this);
         m_game_action_group->addAction(
                     new main_menu_action(QIcon("img/main_menu.png"), "Main Menu", m_parent));
         m_game_action_group->addAction(
@@ -85,17 +83,17 @@ void menu::create_action_groups()
     }
 }
 
-void menu::create_menus()
+void menu_bar::create_menus()
 {
     m_game_menu = new QMenu(QString("&Game"));
     m_info_menu = new QMenu(QString("&About"));
     m_game_menu->addActions(m_game_action_group->actions());
     m_info_menu->addActions(m_info_action_group->actions());
-    m_menu_bar->addMenu(m_game_menu);
-    m_menu_bar->addMenu(m_info_menu);
+    addMenu(m_game_menu);
+    addMenu(m_info_menu);
 }
 
-void menu::fill_actions_data()
+void menu_bar::fill_actions_data()
 {
     Q_ASSERT(m_game_action_group != 0);
     Q_ASSERT(m_info_action_group != 0);

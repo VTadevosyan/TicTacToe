@@ -11,7 +11,7 @@
 #include <QSize>
 
 class manager;
-class menu;
+class menu_bar;
 class game_mode_selector;
 class QButtonGroup;
 class QCloseEvent;
@@ -25,7 +25,7 @@ class main_window : public QMainWindow
     Q_OBJECT
 public:
     /// @brief Constructor
-    main_window(QWidget *parent = 0);
+    main_window(QWidget* parent = 0);
 
     /// @brief Destructor
     virtual ~main_window();
@@ -74,7 +74,7 @@ private slots:
 
 private:
     manager* m_manager;
-    menu* m_menu;
+    menu_bar* m_menu_bar;
     board* m_board;
     game_mode_selector* m_selector;
     QButtonGroup* m_group;

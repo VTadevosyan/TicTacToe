@@ -5,7 +5,7 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-#include <QMainWindow>
+#include <QWidget>
 #include <QMenuBar>
 
 #include <list>
@@ -16,17 +16,17 @@ class QMenu;
 class QWidget;
 
 /**
- * @class menu
- * @brief The menu class
+ * @class menu_bar
+ * @brief The menu bar class
  */
-class menu
+class menu_bar : public QMenuBar
 {
 public:
     /// @brief Constructor
-    menu(QMenuBar*, QWidget* = 0);
+    menu_bar(QWidget* const = 0);
 
     /// @brief Destructor
-    ~menu();
+    ~menu_bar();
 
     /// @brief Initialize menu
     void initialize();
@@ -59,7 +59,6 @@ private:
 private:
     QWidget* m_parent;
     std::list<base_action*> m_actions;
-    QMenuBar* m_menu_bar;
     QActionGroup* m_game_action_group;
     QActionGroup* m_info_action_group;
     /// Menus
