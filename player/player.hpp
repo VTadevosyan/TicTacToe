@@ -5,6 +5,7 @@
 #ifndef PLAYER_PLAYER_HPP
 #define PLAYER_PLAYER_HPP
 
+#include "game/logging.hpp"
 #include "game/manager.hpp"
 
 class abstract_item;
