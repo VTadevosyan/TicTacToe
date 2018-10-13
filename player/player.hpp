@@ -45,7 +45,7 @@ protected:
     /// @param[in] p 'X' or 'O' player
     void log_turn(unsigned s, bool p)
     {
-
+        logging::log_turn(s, p);
     }
 
 protected:
