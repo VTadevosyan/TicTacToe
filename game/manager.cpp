@@ -130,6 +130,11 @@ bool manager::is_section_empty(const unsigned& s)
     return m_board_data[s-1];
 }
 
+void manager::set_game_status(const status& s)
+{
+    m_game_status = s;
+}
+
 manager::status manager::check_game_status()
 {
     if (m_game_status == manager::not_started) {
@@ -412,7 +417,7 @@ abstract_item* manager::get_item()
     return m_item;
 }
 
-void manager::finish_game()
+void manager::finish_game(bool f)
 {
     m_item = 0;
     m_cpu_steps = 0;
@@ -422,6 +427,7 @@ void manager::finish_game()
     for(size_t i = 0; i < 9; ++i) {
         m_board_data[i] = m_empty_symbol;
     }
+    logging::log_action(m_game_status, false, f);
     m_game_status = manager::not_started;
 }
 

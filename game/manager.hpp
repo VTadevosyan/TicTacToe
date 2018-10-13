@@ -46,6 +46,9 @@ public:
     /// @brief Set game options
     void set_options(const options&);
 
+    /// @brief Set game status
+    void set_game_status(const status&);
+
     /// @brief Set main window background image path
     void set_window_bg_image_path(const QString&);
 
@@ -94,7 +97,7 @@ signals:
 
 public slots:
     /// @brief Finish game
-    void finish_game();
+    void finish_game(bool = false);
 
 private:
     /// @brief Constructor
