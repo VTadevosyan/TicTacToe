@@ -6,6 +6,7 @@
 #include "gui/main_window.hpp"
 #include "gui/menu.hpp"
 #include "gui/game_mode_selector.hpp"
+#include "game/logging.hpp"
 #include "game/manager.hpp"
 
 #include <QCloseEvent>
@@ -32,6 +33,7 @@ main_window::main_window(QWidget* parent)
     : QMainWindow(parent)
 {
     construct();
+    logging::initialize();
 }
 
 main_window::~main_window()
@@ -81,6 +83,7 @@ void main_window::set_game_mode(int mode)
 {
     manager* m = manager::get_instance(mode);
     Q_ASSERT(m != 0);
+    logging::log_action(m->check_game_status(), true);
     m->set_game_mode(mode);
     m->start();
     create_board();
@@ -127,7 +130,8 @@ void main_window::end_game(const unsigned& s)
     m_board->clear();
     manager* mgr = manager::get_instance();
     Q_ASSERT(mgr != 0);
-    mgr->game_finished();
+    mgr->set_game_status(static_cast<manager::status>(s));
+    mgr->finish_game();
 }
 
 void main_window::show_game_mode_selector()
@@ -137,12 +141,14 @@ void main_window::show_game_mode_selector()
 
 void main_window::return_main_menu()
 {
-    Q_ASSERT(manager::get_instance() != 0);
-    if (manager::get_instance()->check_game_status() == manager::in_the_game) {
+    manager* m = manager::get_instance();
+    Q_ASSERT(m != 0);
+    if (m->check_game_status() == manager::in_the_game) {
         const QString msg = "Show Main Menu. The game will be lost\nAre You Sure?";
         QMessageBox::StandardButton btn = QMessageBox::warning(this, main_window_options::window_title,
                                                                msg, QMessageBox::Ok | QMessageBox::Cancel);
         if (btn == QMessageBox::Ok) {
+            m->finish_game(true);
             show_game_mode_selector();
         }
     }
@@ -156,7 +162,10 @@ void main_window::closeEvent(QCloseEvent* e)
                 : "Are You Sure?";
     QMessageBox::StandardButton btn = QMessageBox::warning(this, main_window_options::window_title,
                                                            msg, QMessageBox::Ok | QMessageBox::Cancel);
-    btn == QMessageBox::Ok ? e->accept() : e->ignore();
+    if (btn == QMessageBox::Ok) {
+        logging::uninitialize();
+        QMainWindow::closeEvent(e);
+    }
 }
 
 void main_window::actionEvent(QAction* e)

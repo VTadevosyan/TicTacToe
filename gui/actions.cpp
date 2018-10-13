@@ -5,6 +5,7 @@
 #include "gui/actions.hpp"
 #include "gui/main_window.hpp"
 #include "gui/style_dialog.hpp"
+#include "game/logging.hpp"
 #include "game/manager.hpp"
 #include "game/options.hpp"
 
@@ -34,7 +35,8 @@ void new_game_action::execute() const
     manager* m = manager::get_instance();
     Q_ASSERT(m != 0);
     if (m->check_game_status() == manager::in_the_game) {
-        m->game_finished();
+        m->set_game_status(manager::lose);
+        m->finish_game(true);
         m_parent->start_game(m->is_multiple_game());
     }
 }
