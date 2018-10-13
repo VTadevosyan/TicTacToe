@@ -164,7 +164,9 @@ void main_window::closeEvent(QCloseEvent* e)
                                                            msg, QMessageBox::Ok | QMessageBox::Cancel);
     if (btn == QMessageBox::Ok) {
         logging::uninitialize();
-        QMainWindow::closeEvent(e);
+        e->accept();
+    } else {
+        e->ignore();
     }
 }
 
