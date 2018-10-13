@@ -5,6 +5,8 @@
 #ifndef PLAYER_PLAYER_HPP
 #define PLAYER_PLAYER_HPP
 
+#include "game/manager.hpp"
+
 class abstract_item;
 class QPointF;
 
@@ -35,6 +37,15 @@ public:
     virtual abstract_item* get_item()
     {
         return m_item;
+    }
+
+protected:
+    /// @brief Log players turn
+    /// @param[in] s section
+    /// @param[in] p 'X' or 'O' player
+    void log_turn(unsigned s, bool p)
+    {
+
     }
 
 protected:

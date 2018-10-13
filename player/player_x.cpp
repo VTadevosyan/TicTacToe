@@ -29,6 +29,7 @@ player_x* player_x::get_instance()
 void player_x::do_step(const unsigned& s)
 {
     create_item(s);
+    log_turn(s, true);
 }
 
 void player_x::create_item(const unsigned& s)
