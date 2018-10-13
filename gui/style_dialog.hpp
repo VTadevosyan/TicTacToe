@@ -29,6 +29,9 @@ private:
     void setup_layout();
 
 private slots:
+    void set_window_bg(const QString&, const QString&);
+    void set_board_bg(const QString&, const QString&);
+    void set_shapes(const std::pair<QString, QString>&, const QString&);
     void set_window_bg_1();
     void set_window_bg_2();
     void set_window_bg_3();
@@ -45,9 +48,6 @@ private:
     QLabel* m_selected_window_bg;
     QLabel* m_selected_board_bg;
     QLabel* m_selected_shapes;
-    QString m_initial_window_img;
-    QString m_initial_board_img;
-    std::pair<QString, QString> m_initial_shapes_img;
 };
 
 #endif // STYLE_DIALOG_HPP
