@@ -27,13 +27,11 @@ void logging::initialize()
 {
     assert(m_log.empty());
     m_log.push_back("Starting game 'Tic Tac Toe'  #" + get_time());
-    std::cout << m_log.back() << std::endl;
 }
 
 void logging::uninitialize()
 {
     m_log.push_back("Exiting game 'Tic Tac Toe'  #" + get_time());
-    std::cout << m_log.back() << std::endl;
     m_log.clear();
 }
 
@@ -42,7 +40,6 @@ void logging::log_turn(unsigned s, bool p)
     std::string msg = std::string("Player ") + (p ? "'X'" : "'O'") +
             "' take turn on section " + std::to_string(s) + "  #";
     m_log.push_back(msg + get_time());
-    std::cout << m_log.back() << std::endl;
 }
 
 void logging::log_action(manager::status s, bool n, bool e)
@@ -52,7 +49,6 @@ void logging::log_action(manager::status s, bool n, bool e)
         assert(s == manager::not_started && e == false);
         msg = "New game at " + get_time();
         m_log.push_back(msg);
-        std::cout << m_log.back() << std::endl;
     } else {
         msg = "Game finished. ";
         if (e) {
@@ -73,6 +69,5 @@ void logging::log_action(manager::status s, bool n, bool e)
         }
         msg += get_time();
         m_log.push_back(msg);
-        std::cout << m_log.back() << std::endl;
     }
 }
