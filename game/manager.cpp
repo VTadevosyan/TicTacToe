@@ -412,7 +412,7 @@ abstract_item* manager::get_item()
     return m_item;
 }
 
-void manager::game_finished()
+void manager::finish_game()
 {
     m_item = 0;
     m_cpu_steps = 0;

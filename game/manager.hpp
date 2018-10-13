@@ -94,7 +94,7 @@ signals:
 
 public slots:
     /// @brief Finish game
-    void game_finished();
+    void finish_game();
 
 private:
     /// @brief Constructor
