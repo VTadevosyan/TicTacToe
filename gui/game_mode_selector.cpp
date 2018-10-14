@@ -18,7 +18,7 @@ static const QString stylesheet = "color: darkRed; padding: -100px;";
 
 } // button
 
-const QSize game_mode_selector::m_minimum_size = QSize(800, 620);
+const QSize game_mode_selector::m_minimum_size = QSize(600, 620);
 
 
 game_mode_selector::game_mode_selector(QWidget *parent)
