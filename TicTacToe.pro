@@ -24,6 +24,7 @@ SOURCES +=  game/main.cpp\
             gui/actions.cpp \
             gui/board.cpp \
             gui/game_mode_selector.cpp \
+            gui/history.cpp \
             gui/main_window.cpp \
             gui/menu.cpp \
             gui/style_dialog.cpp \
@@ -42,6 +43,7 @@ HEADERS  += game/manager.hpp \
             gui/actions.hpp \
             gui/board.hpp \
             gui/game_mode_selector.hpp \
+            gui/history.hpp \
             gui/main_window.hpp \
             gui/menu.hpp \
             gui/style_dialog.hpp \
